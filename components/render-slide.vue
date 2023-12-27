@@ -7,7 +7,7 @@ const props = defineProps(['slide'])
     <img :src="slide.source" v-if="slide.type === 'image'"
          :class="{'object-cover': slide.imageMode === 'cover', 'object-contain': slide.imageMode === 'contain'}"
     />
-    <video :src="slide.source" v-else-if="slide.type === 'video'"/>
+    <video :src="slide.source" v-else-if="slide.type === 'video'" autoplay :muted="slide.muted"/>
     <iframe :src="slide.source" v-else-if="slide.type === 'iframe'"/>
     <div class="html" v-html="slide.source" v-else-if="slide.type === 'html'"/>
   </div>
