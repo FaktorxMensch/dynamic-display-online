@@ -54,12 +54,10 @@ const emit = defineEmits(['delete'])
       />
       <div class="flex">
         <v-text-field
-            v-if="props.slide.type !== 'html'"
             v-model="props.slide.background"
             label="Hintergrundfarbe"
         />
         <v-text-field
-            v-if="props.slide.type !== 'html'"
             v-model="props.slide.background"
             label="Hintergrundfarbe"
             type="color"

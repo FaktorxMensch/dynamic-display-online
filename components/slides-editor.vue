@@ -68,37 +68,47 @@ const openSlideshow = () => {
 
 <template>
   <div v-if="user && slideshow">
-    <h1 class="text-4xl py-4">Folien</h1>
+
+    <h1 class="text-4xl py-4">Slideshow bearbeiten</h1>
     <div class="flex items-center justify-center mb-4 gap-2">
       <v-text-field v-model="generatedUrl" variant="outlined" density="compact" label="Presentation URL" readonly/>
-      <v-text-field v-model="generatedControlUrl" variant="outlined" density="compact" label="Control URL" readonly/>
+      <v-text-field v-model="generatedControlUrl" variant="outlined" density="compact" label="Control URL"
+                    readonly/>
       <v-btn @click="openSlideshow"
              variant="flat"
              prepend-icon="mdi-open-in-new"
       >Öffnen
       </v-btn>
     </div>
-    <!--    {{ slideshow }}-->
-    <v-alert type="info" v-if="slideshow.slides.length === 0">Diese Slideshow hat noch keine Folien.</v-alert>
-    <slide v-for="slide in slideshow.slides" :key="slide.id" :slide="slide"
-           v-else
-           @delete="slideshow.slides.splice(slideshow.slides.indexOf(slide), 1)"/>
-    <div class="flex mb-8">
-      <v-btn @click="addSlide"
-             variant="flat"
-             class="mt-4"
-             prepend-icon="mdi-plus"
-      >Folie hinzufügen
-      </v-btn>
-      <v-spacer/>
-      <!-- save button -->
-      <v-btn @click="save"
-             color="primary"
-             variant="flat"
-             class="mt-4"
-             prepend-icon="mdi-content-save"
-      >Speichern
-      </v-btn>
+
+    <div class="flex gap-4">
+      <sidenav class="w-56" :slideshow="slideshow"/>
+      <div class="flex-1">
+        <h1 class="text-4xl py-4">Folie bearbeiten</h1>
+
+        <!--    {{ slideshow }}-->
+        <v-alert type="info" v-if="slideshow.slides.length === 0">Diese Slideshow hat noch keine Folien.</v-alert>
+        <slide-edit v-for="slide in slideshow.slides" :key="slide.id" :slide="slide"
+               v-else
+               @delete="slideshow.slides.splice(slideshow.slides.indexOf(slide), 1)"/>
+        <div class="flex mb-8">
+          <v-btn @click="addSlide"
+                 variant="flat"
+                 class="mt-4"
+                 prepend-icon="mdi-plus"
+          >Folie hinzufügen
+          </v-btn>
+          <v-spacer/>
+          <!-- save button -->
+          <v-btn @click="save"
+                 color="primary"
+                 variant="flat"
+                 class="mt-4"
+                 prepend-icon="mdi-content-save"
+          >Speichern
+          </v-btn>
+        </div>
+      </div>
     </div>
   </div>
   <div v-else-if="user">Bitte wählen Sie eine Slideshow aus.</div>

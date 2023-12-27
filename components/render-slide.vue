@@ -14,7 +14,7 @@ const props = defineProps(['slide'])
 </template>
 
 <style>
-.render-slide > * {
-  @apply w-full h-full fixed inset-0 overflow-hidden;
+.render-slide, .render-slide > * {
+  @apply w-full h-full overflow-hidden min-h-full;
 }
 </style>

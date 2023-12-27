@@ -38,11 +38,13 @@ const createSlideshow = async () => {
       <v-form @submit.prevent="createSlideshow">
         <v-text-field
             v-model="title"
+            label="Titel"
             type="text"
         />
         <v-btn
             variant="tonal"
-            class="w-full"
+            class="w-full mt-4"
+            prepend-icon="mdi-playlist-plus"
             color="primary"
             @click="createSlideshow"> Slideshow erstellen
         </v-btn>

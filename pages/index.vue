@@ -9,7 +9,7 @@
         item-text="title"
         item-value="id"
         label="Slideshow"
-        prepend-icon="mdi-playlist-play"
+        prepend-inner-icon="mdi-playlist-play"
         variant="outlined"
         density="compact"
     />
