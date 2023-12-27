@@ -33,9 +33,10 @@ const addSlide = () => {
 
 <template>
   <div v-if="user && slideshow">
-    <h1 class="text-4xl">Folien</h1>
-    {{ slideshow }}
-    <slide v-for="slide in slideshow.slides" :key="slide.id" :slide="slide"/>
+    <h1 class="text-4xl py-3">Folien</h1>
+    <!--    {{ slideshow }}-->
+    <v-alert type="info" v-if="slideshow.slides.length === 0">Diese Slideshow hat noch keine Folien.</v-alert>
+    <slide v-for="slide in slideshow.slides" :key="slide.id" :slide="slide" v-else/>
     <v-btn @click="addSlide"
            color="primary"
            variant="flat"

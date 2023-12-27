@@ -1,17 +1,21 @@
 <template>
-  <h1 class="text-4xl">Dynamic Display</h1>
-  <p class="text-lg">Verwalten Sie die Inhalte Ihres Displays.</p>
-  <!--  <create-slideshow @created="fetchSlideshows"/>-->
-
-  <v-select
-      v-model="currentSlideshow"
-      :items="slideshows"
-      item-text="title"
-      item-value="id"
-      label="Slideshow"
-      outlined
-  />
-  <slides-editor :slideshow="slideshow"/>
+  <v-app-bar>
+    <v-app-bar-title>
+      Dynamic Display
+    </v-app-bar-title>
+    <!--  <create-slideshow @created="fetchSlideshows"/>-->
+    <v-select
+        v-model="currentSlideshow"
+        :items="slideshows"
+        item-text="title"
+        item-value="id"
+        label="Slideshow"
+        prepend-icon="mdi-playlist-play"
+    />
+  </v-app-bar>
+  <v-main>
+    <slides-editor :slideshow="slideshow"/>
+  </v-main>
 </template>
 <script setup>
 const supabase = useSupabaseClient()
