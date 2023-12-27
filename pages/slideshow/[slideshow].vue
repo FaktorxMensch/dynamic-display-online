@@ -34,11 +34,15 @@ watch(currentSlideData, () => {
   }
 }, {immediate: true})
 
+// refresh the whole page after 30 minutes
+setTimeout(() => {
+  window.location.reload()
+}, 30 * 60 * 1000)
 </script>
 <template>
   <template v-if="slideshow?.title">
     <title>{{slideshow?.title}} (Dynamic Display)</title>
-<!--    <v-btn @click="nextSlide" class="fixed top-0 right-0 m-4 z-50" icon="mdi-play"/>-->
+    <!--    <v-btn @click="nextSlide" class="fixed top-0 right-0 m-4 z-50" icon="mdi-play"/>-->
     <render-slide :slide="currentSlideData"/>
   </template>
   <div v-else>
