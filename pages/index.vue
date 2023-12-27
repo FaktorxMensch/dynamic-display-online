@@ -3,7 +3,6 @@
     <v-app-bar-title>
       Dynamic Display
     </v-app-bar-title>
-    <!--  <create-slideshow @created="fetchSlideshows"/>-->
     <v-select
         v-model="currentSlideshow"
         :items="slideshows"
@@ -25,7 +24,8 @@
     </v-btn>
   </v-app-bar>
   <v-main>
-    <slides-editor :slideshow="slideshow"/>
+    <slides-editor :slideshow="slideshow" v-if="slideshow"/>
+    <create-slideshow @created="fetchSlideshows" v-else/>
   </v-main>
 </template>
 <script setup>

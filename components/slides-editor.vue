@@ -54,6 +54,13 @@ const generatedUrl = computed(() => {
   return `${window.location.origin}/slideshow/${props.slideshow.id}`
 })
 
+const generatedControlUrl = computed(() => {
+  if (!props.slideshow) {
+    return null
+  }
+  return `${window.location.origin}/control/${props.slideshow.id}`
+})
+
 const openSlideshow = () => {
   window.open(generatedUrl.value, '_blank')
 }
@@ -62,17 +69,11 @@ const openSlideshow = () => {
 <template>
   <div v-if="user && slideshow">
     <h1 class="text-4xl py-4">Folien</h1>
-    <div class="flex items-center justify-center mb-4">
-      <v-text-field
-          v-model="generatedUrl"
-          variant="outlined"
-          density="compact"
-          label="URL"
-          readonly
-      />
+    <div class="flex items-center justify-center mb-4 gap-2">
+      <v-text-field v-model="generatedUrl" variant="outlined" density="compact" label="Presentation URL" readonly/>
+      <v-text-field v-model="generatedControlUrl" variant="outlined" density="compact" label="Control URL" readonly/>
       <v-btn @click="openSlideshow"
              variant="flat"
-             class="ms-2"
              prepend-icon="mdi-open-in-new"
       >Öffnen
       </v-btn>
