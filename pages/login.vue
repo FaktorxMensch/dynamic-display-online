@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const supabase = useSupabaseClient()
-const email = ref('info@faktorxmensch.com')
+const email = ref('')
 const loading = ref(false)
 
 const signInWithOtp = async () => {
