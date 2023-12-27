@@ -9,8 +9,34 @@ const {data: slideshow, error} = await supabase
     .select()
     .eq('id', slideshow_id)
     .single()
+
+definePageMeta({layout: ''})
+
+const currentSlide = ref(0)
+const currentSlideData = computed(() => {
+  if (!slideshow) {
+    return null
+  }
+  return slideshow.slides[currentSlide.value]
+})
+const nextSlide = () => {
+  currentSlide.value = (currentSlide.value + 1) % slideshow.slides.length
+}
 </script>
 <template>
-  hiiiii
-  {{slideshow}}
+  <template v-if="slideshow?.title">
+    <title>{{slideshow?.title}} (Dynamic Display)</title>
+    <render-slide class="render-slide" :slide="currentSlideData.value"/>
+  </template>
+  <div v-else>
+    <title>Dynamic Display</title>
+    <div class="h-screen w-screen bg-black flex justify-center items-center">
+      <v-progress-circular indeterminate/>
+    </div>
+  </div>
 </template>
+<style>
+.render-slide {
+  @apply h-screen w-screen bg-black;
+}
+</style>
