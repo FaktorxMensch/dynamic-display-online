@@ -21,12 +21,25 @@ const currentSlideData = computed(() => {
 })
 const nextSlide = () => {
   currentSlide.value = (currentSlide.value + 1) % slideshow.slides.length
+  // set timeout for next slide
+  console.log('setting timeout for next slide in', currentSlideData.value.displayTime)
+  setTimeout(nextSlide, currentSlideData.value.displayTime)
 }
+
+const started = ref(false)
+watch(currentSlideData, () => {
+  if (!started.value && currentSlideData.value) {
+    started.value = true
+    nextSlide()
+  }
+}, {immediate: true})
+
 </script>
 <template>
   <template v-if="slideshow?.title">
     <title>{{slideshow?.title}} (Dynamic Display)</title>
-    <render-slide class="render-slide" :slide="currentSlideData.value"/>
+<!--    <v-btn @click="nextSlide" class="fixed top-0 right-0 m-4 z-50" icon="mdi-play"/>-->
+    <render-slide :slide="currentSlideData"/>
   </template>
   <div v-else>
     <title>Dynamic Display</title>
@@ -35,8 +48,3 @@ const nextSlide = () => {
     </div>
   </div>
 </template>
-<style>
-.render-slide {
-  @apply h-screen w-screen bg-black;
-}
-</style>
