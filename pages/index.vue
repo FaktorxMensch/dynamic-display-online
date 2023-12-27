@@ -11,7 +11,18 @@
         item-value="id"
         label="Slideshow"
         prepend-icon="mdi-playlist-play"
+        variant="outlined"
+        density="compact"
     />
+    <v-btn
+        v-if="user"
+        color="primary"
+        class="ms-2"
+        variant="outlined"
+        prepend-icon="mdi-power"
+        @click="currentSlideshow = null"
+    >Logout
+    </v-btn>
   </v-app-bar>
   <v-main>
     <slides-editor :slideshow="slideshow"/>
