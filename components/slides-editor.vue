@@ -82,22 +82,15 @@ const openSlideshow = () => {
     </div>
 
     <div class="flex gap-4">
-      <sidenav class="w-56" :slideshow="slideshow"/>
+      <sidenav @add-slide="addSlide" class="w-56" :slideshow="slideshow"/>
       <div class="flex-1">
-        <h1 class="text-4xl py-4">Folie bearbeiten</h1>
 
-        <!--    {{ slideshow }}-->
+        <h5 class="text-h5 mb-2">Aktuelle Folie</h5>
+
         <v-alert type="info" v-if="slideshow.slides.length === 0">Diese Slideshow hat noch keine Folien.</v-alert>
-        <slide-edit v-for="slide in slideshow.slides" :key="slide.id" :slide="slide"
-               v-else
-               @delete="slideshow.slides.splice(slideshow.slides.indexOf(slide), 1)"/>
+        <slide-edit v-for="slide in slideshow.slides" :key="slide.id" :slide="slide" v-else
+                    @delete="slideshow.slides.splice(slideshow.slides.indexOf(slide), 1)"/>
         <div class="flex mb-8">
-          <v-btn @click="addSlide"
-                 variant="flat"
-                 class="mt-4"
-                 prepend-icon="mdi-plus"
-          >Folie hinzufügen
-          </v-btn>
           <v-spacer/>
           <!-- save button -->
           <v-btn @click="save"

@@ -4,7 +4,9 @@ const emit = defineEmits(['delete'])
 </script>
 
 <template>
-  <v-card class="mb-4">
+  <v-card class="mb-4"
+          variant="outlined"
+  >
     <v-card-title>
       <div class="flex justify-between items-center">
         {{ props.slide.type.charAt(0).toUpperCase() + props.slide.type.slice(1) }} -
@@ -24,7 +26,7 @@ const emit = defineEmits(['delete'])
         />
       </div>
     </v-card-title>
-    <v-card-text>
+    <v-card-text class="flex flex-col gap-2">
       <v-textarea
           v-if="props.slide.type === 'html'"
           v-model="props.slide.source"
