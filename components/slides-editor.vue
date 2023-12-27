@@ -10,24 +10,24 @@ const addSlide = () => {
     "background": "#000000",
     "imageMode": "cover"
   })
-  props.slideshow.slides.push({
-    "type": "video",
-    "source": "bild1.mov",
-    "displayTime": 42000,
-    "muted": true,
-  })
-  props.slideshow.slides.push({
-    "type": "iframe",
-    "source": "https://www.youtube.com/embed/9XaS93WMRQQ",
-    "displayTime": 10000,
-    "background": "#000000",
-  })
-  props.slideshow.slides.push({
-    "type": "html",
-    "source": "<h1>HTML</h1>",
-    "displayTime": 10000,
-    "background": "#000000",
-  })
+  // props.slideshow.slides.push({
+  //   "type": "video",
+  //   "source": "bild1.mov",
+  //   "displayTime": 42000,
+  //   "muted": true,
+  // })
+  // props.slideshow.slides.push({
+  //   "type": "iframe",
+  //   "source": "https://www.youtube.com/embed/9XaS93WMRQQ",
+  //   "displayTime": 10000,
+  //   "background": "#000000",
+  // })
+  // props.slideshow.slides.push({
+  //   "type": "html",
+  //   "source": "<h1>HTML</h1>",
+  //   "displayTime": 10000,
+  //   "background": "#000000",
+  // })
 }
 </script>
 
