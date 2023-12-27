@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 const props = defineProps(['slide'])
+const emit = defineEmits(['delete'])
 </script>
 
 <template>
@@ -12,8 +13,14 @@ const props = defineProps(['slide'])
         <v-select v-model="props.slide.type"
                   :items="['image', 'video', 'iframe', 'html']"
                   variant="outlined"
-                  class="w-4"
+                  class="w-4 me-2"
                   density="compact"
+        />
+        <v-btn @click="$emit('delete')"
+               color="error"
+               variant="outlined"
+               density="comfortable"
+               icon="mdi-delete"
         />
       </div>
     </v-card-title>

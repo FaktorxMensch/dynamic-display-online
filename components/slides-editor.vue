@@ -36,7 +36,9 @@ const addSlide = () => {
     <h1 class="text-4xl py-3">Folien</h1>
     <!--    {{ slideshow }}-->
     <v-alert type="info" v-if="slideshow.slides.length === 0">Diese Slideshow hat noch keine Folien.</v-alert>
-    <slide v-for="slide in slideshow.slides" :key="slide.id" :slide="slide" v-else/>
+    <slide v-for="slide in slideshow.slides" :key="slide.id" :slide="slide"
+           @delete="slideshow.slides.splice(slideshow.slides.indexOf(slide), 1)"/>
+    v-else/>
     <v-btn @click="addSlide"
            color="primary"
            variant="flat"
