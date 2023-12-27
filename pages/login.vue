@@ -44,12 +44,14 @@ definePageMeta({layout: 'login'})
           <v-text-field
               v-model="email"
               type="email"
+              placeholder="E-Mail Adresse"
           />
           <v-btn
-              variant="tonal"
-              class="w-full"
+              variant="flat"
+              :disabled="!email"
+              class="w-full mt-3"
               color="primary"
-              @click="signInWithOtp"> Sign In with E-Mail
+              @click="signInWithOtp"> Mit E-Mail anmelden
           </v-btn>
         </v-form>
       </v-card-text>
