@@ -42,7 +42,6 @@ setTimeout(() => {
 <template>
   <template v-if="slideshow?.title">
     <title>{{slideshow?.title}} (Dynamic Display)</title>
-    <!--    <v-btn @click="nextSlide" class="fixed top-0 right-0 m-4 z-50" icon="mdi-play"/>-->
     <render-slide v-if="currentSlideData" :slide="currentSlideData"/>
   </template>
   <div v-else>

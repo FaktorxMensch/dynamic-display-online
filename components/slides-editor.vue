@@ -41,6 +41,9 @@ const save = async () => {
   if (error) {
     console.error('Error inserting data:', error);
     return;
+  } else {
+    alert('Folien gespeichert')
+    console.log('Data inserted successfully:', data);
   }
   console.log('Data inserted successfully:', data);
 }
