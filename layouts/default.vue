@@ -1,0 +1,9 @@
+<template>
+  <v-app>
+    <v-layout>
+      <v-container>
+        <slot/>
+      </v-container>
+    </v-layout>
+  </v-app>
+</template>
