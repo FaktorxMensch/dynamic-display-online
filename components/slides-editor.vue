@@ -50,18 +50,30 @@ const generatedUrl = computed(() => {
   }
   return `${window.location.origin}/slideshow/${props.slideshow.id}`
 })
+
+const openSlideshow = () => {
+  window.open(generatedUrl.value, '_blank')
+}
 </script>
 
 <template>
   <div v-if="user && slideshow">
     <h1 class="text-4xl py-4">Folien</h1>
-    <v-text-field
-        v-model="generatedUrl"
-        variant="outlined"
-        class="mb-4"
-        label="URL"
-        readonly
-    />
+    <div class="flex items-center justify-center mb-4">
+      <v-text-field
+          v-model="generatedUrl"
+          variant="outlined"
+          density="compact"
+          label="URL"
+          readonly
+      />
+      <v-btn @click="openSlideshow"
+             variant="flat"
+             class="ms-2"
+             prepend-icon="mdi-open-in-new"
+      >Öffnen
+      </v-btn>
+    </div>
     <!--    {{ slideshow }}-->
     <v-alert type="info" v-if="slideshow.slides.length === 0">Diese Slideshow hat noch keine Folien.</v-alert>
     <slide v-for="slide in slideshow.slides" :key="slide.id" :slide="slide"
