@@ -29,23 +29,61 @@ const addSlide = () => {
   //   "background": "#000000",
   // })
 }
+
+const save = async () => {
+  const {data, error} = await supabase
+      .from('slideshows')
+      .update({
+        slides: props.slideshow.slides,
+      })
+      .eq('id', props.slideshow.id)
+      .select()
+  if (error) {
+    console.error('Error inserting data:', error);
+    return;
+  }
+  console.log('Data inserted successfully:', data);
+}
+const generatedUrl = computed(() => {
+  if (!props.slideshow) {
+    return null
+  }
+  return `${window.location.origin}/slideshow/${props.slideshow.id}`
+})
 </script>
 
 <template>
   <div v-if="user && slideshow">
     <h1 class="text-4xl py-4">Folien</h1>
+    <v-text-field
+        v-model="generatedUrl"
+        variant="outlined"
+        class="mb-4"
+        label="URL"
+        readonly
+    />
     <!--    {{ slideshow }}-->
     <v-alert type="info" v-if="slideshow.slides.length === 0">Diese Slideshow hat noch keine Folien.</v-alert>
     <slide v-for="slide in slideshow.slides" :key="slide.id" :slide="slide"
            v-else
            @delete="slideshow.slides.splice(slideshow.slides.indexOf(slide), 1)"/>
-    <v-btn @click="addSlide"
-           color="primary"
-           variant="flat"
-           class="mt-4"
-           prepend-icon="mdi-plus"
-    >Folie hinzufügen
-    </v-btn>
+    <div class="flex mb-8">
+      <v-btn @click="addSlide"
+             variant="flat"
+             class="mt-4"
+             prepend-icon="mdi-plus"
+      >Folie hinzufügen
+      </v-btn>
+      <v-spacer/>
+      <!-- save button -->
+      <v-btn @click="save"
+             color="primary"
+             variant="flat"
+             class="mt-4"
+             prepend-icon="mdi-content-save"
+      >Speichern
+      </v-btn>
+    </div>
   </div>
   <div v-else-if="user">Bitte wählen Sie eine Slideshow aus.</div>
   <v-progress-circular indeterminate v-else/>
