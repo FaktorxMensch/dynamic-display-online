@@ -30,14 +30,18 @@ const started = ref(false)
 watch(currentSlideData, () => {
   if (!started.value && currentSlideData.value) {
     started.value = true
+
+    // only continue if more than 1 slide
+    if (slideshow.slides.length <= 1) return
+
     nextSlide()
   }
 }, {immediate: true})
 
-// refresh the whole page after 30 minutes
+// refresh the whole page after 60 minutes
 setTimeout(() => {
   window.location.reload()
-}, 30 * 60 * 1000)
+}, 60 * 60 * 1000)
 </script>
 <template>
   <template v-if="slideshow?.title">
