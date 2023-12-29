@@ -25,7 +25,7 @@ definePageMeta({layout: 'login'})
 </script>
 <template>
   <v-container>
-    <v-card>
+    <v-card class="border pt-3">
       <v-card-title
           class="text-h4"
       >
@@ -44,12 +44,12 @@ definePageMeta({layout: 'login'})
           <v-text-field
               v-model="email"
               type="email"
+              variant="outlined"
               placeholder="E-Mail Adresse"
           />
           <v-btn
-              variant="flat"
               :disabled="!email"
-              class="w-full mt-3"
+              class="w-full"
               color="primary"
               @click="signInWithOtp"> Mit E-Mail anmelden
           </v-btn>
