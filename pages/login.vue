@@ -25,7 +25,7 @@ definePageMeta({layout: 'login'})
 </script>
 <template>
   <v-container>
-    <v-card class="border pt-3">
+    <v-card class="border pt-3" style="box-shadow: 0 20px 20px -10px #0003">
       <v-card-title
           class="text-h4"
       >

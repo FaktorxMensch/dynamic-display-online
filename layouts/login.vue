@@ -2,7 +2,7 @@
   <v-app>
     <v-layout>
       <v-container>
-        <div class="max-w-xl py-5 mx-auto">
+        <div class="max-w-lg py-12 mx-auto">
           <img src="/icon.jpeg" alt="Logo" class="w-32 mx-auto"/>
           <slot/>
         </div>
