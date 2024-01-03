@@ -23,7 +23,7 @@ const nextSlide = () => {
   currentSlide.value = (currentSlide.value + 1) % slideshow.slides.length
   // set timeout for next slide
   console.log('setting timeout for next slide in', currentSlideData.value.displayTime)
-  setTimeout(nextSlide, currentSlideData.value.displayTime)
+  setTimeout(nextSlide, currentSlideData.value.displayTime * 1000)
 }
 
 const started = ref(false)
@@ -38,10 +38,10 @@ watch(currentSlideData, () => {
   }
 }, {immediate: true})
 
-// refresh the whole page after 60 minutes
+// refresh the whole page
 setTimeout(() => {
   window.location.reload()
-}, 60 * 60 * 1000)
+}, 60 * 60 * 1000) // 1 hour
 </script>
 <template>
   <template v-if="slideshow?.title">
