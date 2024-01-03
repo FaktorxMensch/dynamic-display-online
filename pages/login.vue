@@ -5,6 +5,7 @@ const loading = ref(false)
 
 const signInWithOtp = async () => {
   loading.value = true
+  console.log('signing in with otp origin', window.location.origin)
   const {error} = await supabase.auth.signInWithOtp({
     email: email.value,
     options: {
