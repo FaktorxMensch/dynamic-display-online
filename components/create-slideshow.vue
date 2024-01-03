@@ -17,10 +17,12 @@ const createSlideshow = async () => {
   if (error) {
     console.error('Error inserting data:', error);
     return;
+  } else {
+    alert('Slideshow erstellt, bitte wählen Sie diese nun aus der Liste aus')
   }
 
   console.log('Data inserted successfully:', data);
-  emit('created')
+  emit('created', data[0])
 }
 </script>
 
