@@ -40,7 +40,7 @@ const emit = defineEmits(['delete'])
       />
       <v-text-field
           v-model="props.slide.displayTime"
-          label="Anzeigedauer (ms)"
+          label="Anzeigedauer (s)"
           type="number"
       />
       <v-select

@@ -6,26 +6,26 @@ const addSlide = () => {
   props.slideshow.slides.push({
     "type": "image",
     "source": "bild1.jpg",
-    "displayTime": 1000,
+    "displayTime": 5,
     "background": "#000000",
     "imageMode": "cover"
   })
   // props.slideshow.slides.push({
   //   "type": "video",
   //   "source": "bild1.mov",
-  //   "displayTime": 42000,
+  //   "displayTime": 42,
   //   "muted": true,
   // })
   // props.slideshow.slides.push({
   //   "type": "iframe",
   //   "source": "https://www.youtube.com/embed/9XaS93WMRQQ",
-  //   "displayTime": 10000,
+  //   "displayTime": 10,
   //   "background": "#000000",
   // })
   // props.slideshow.slides.push({
   //   "type": "html",
   //   "source": "<h1>HTML</h1>",
-  //   "displayTime": 10000,
+  //   "displayTime": 10,
   //   "background": "#000000",
   // })
 }
