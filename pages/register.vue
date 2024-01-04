@@ -3,11 +3,14 @@ const supabase = useSupabaseClient()
 const email = ref('')
 const password = ref('')
 const loading = ref(false)
+const welikehoneey = ref(false)
 
-const signInWithPassword = async () => {
+const signUp = async () => {
+  if (welikehoneey.value) {
+    return
+  }
   loading.value = true
-  console.log('signing in with otp origin', window.location.origin)
-  const {error} = await supabase.auth.signInWithPassword({
+  const {error, data} = await supabase.auth.signUp({
     email: email.value,
     password: password.value,
     options: {
@@ -20,7 +23,9 @@ const signInWithPassword = async () => {
     alert(error.message)
   } else {
     console.log('success')
-    alert('Bitte prüfen Sie Ihre E-Mails')
+    alert('Ihr Konto wurde erstellt, bitte prüfen Sie Ihre E-Mails um es zu bestätigen')
+    console.log('redirecting to login', data)
+    window.location.href = '/login'
   }
 }
 
@@ -43,7 +48,7 @@ definePageMeta({layout: 'login'})
             indeterminate
             size="64"
         />
-        <v-form @submit.prevent="signInWithPassword" v-else>
+        <v-form @submit.prevent="signUp" v-else>
           <v-text-field
               v-model="email"
               type="email"
@@ -56,21 +61,12 @@ definePageMeta({layout: 'login'})
               variant="outlined"
               placeholder="Passwort"
           />
+          <input v-model="welikehoneey" type="checkbox" style="opacity:0;position:absolute;"/>
           <v-btn
               :disabled="!email"
               class="w-full"
               color="primary"
-              @click="signInWithPassword"
-          >Anmelden
-          </v-btn>
-
-          <!--register button -->
-          <v-btn
-              class="w-full mt-4"
-              variant="flat"
-              to="/register"
-          >
-            Registrieren
+              @click="signUp"> Registrieren
           </v-btn>
         </v-form>
       </v-card-text>

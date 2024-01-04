@@ -10,7 +10,7 @@ export default defineNuxtConfig({
         redirectOptions: {
             // login: '/login',
             // callback: '/confirm',
-            exclude: ['/slideshow/**'],
+            exclude: ['/slideshow/**','/register']
         }
     }
 })
