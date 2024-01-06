@@ -8,7 +8,9 @@ const addSlide = () => {
     "source": "https://cdn.faktorxmensch.com/dynamicdisplay/emily/bild1.jpg",
     "displayTime": 5,
     "background": "#000000",
-    "imageMode": "cover"
+    "imageMode": "cover",
+    "enabled": true,
+    "condition": 'return true;'
   })
   // props.slideshow.slides.push({
   //   "type": "video",

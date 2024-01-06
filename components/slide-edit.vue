@@ -65,6 +65,24 @@ const emit = defineEmits(['delete'])
       </div>
     </v-card-text>
   </v-card>
+  <!-- nächste card, diese bestimmt, ob die folie angezeigt jetzt werden soll (mit konditionaler anzeige als javascript function die einen boolean zurückgibt, ja=folie anzeigen, nein=folie nicht anzeigen) -->
+  <v-card class="mb-4">
+    <v-card-title>
+      <div class="flex justify-between items-center">
+        Folie anzeigen
+        <v-spacer/>
+        <v-checkbox v-model="props.slide.enabled"/>
+      </div>
+    </v-card-title>
+    <v-card-text>
+      <label for="condition"></label>
+      <v-textarea
+          v-model="props.slide.condition"
+          label="Bedingung (JS Ausdruck, der einen boolean zurückgibt, standard ist `return true;`)"
+      />
+    </v-card-text>
+  </v-card>
+
 </template>
 
 <style>
