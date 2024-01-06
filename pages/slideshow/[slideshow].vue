@@ -12,6 +12,18 @@ const {data: slideshow, error} = await supabase
 
 definePageMeta({layout: ''})
 
+const shouldDisplaySlide = (slide) => {
+  if (!slide.enabled) return false;
+
+  try {
+    const conditionFunction = new Function(slide.condition);
+    return conditionFunction();
+  } catch (error) {
+    console.error("Error evaluating condition: ", error);
+    return false;
+  }
+}
+
 const currentSlide = ref(0)
 const currentSlideData = computed(() => {
   if (!slideshow) {
@@ -48,23 +60,13 @@ setTimeout(() => {
   window.location.reload()
 }, 60 * 60 * 1000) // 1 hour
 
-const shouldDisplaySlide = (slide) => {
-  if (!slide.enabled) return false;
-
-  try {
-    const conditionFunction = new Function(slide.condition);
-    return conditionFunction();
-  } catch (error) {
-    console.error("Error evaluating condition: ", error);
-    return false;
-  }
-}
-
 </script>
 <template>
   <template v-if="slideshow?.title">
     <title>{{slideshow?.title}} (Dynamic Display)</title>
-    <render-slide class="inset-0 fixed" v-if="currentSlideData" :slide="currentSlideData"/>
+    <render-slide class="inset-0 fixed" v-if="currentSlideData" :slide="currentSlideData"
+                  @click="nextSlide"/>
+    />
   </template>
   <div v-else>
     <title>Dynamic Display</title>
