@@ -32,6 +32,8 @@ const addSlide = () => {
   // })
 }
 
+const savingSuccess = ref(false)
+
 const save = async () => {
   console.log('saving slides', props.slideshow.id)
   const {data, error} = await supabase
@@ -45,7 +47,10 @@ const save = async () => {
     console.error('Error inserting data:', error);
     return;
   } else {
-    alert('Folien gespeichert')
+    savingSuccess.value = true
+    setTimeout(() => {
+      savingSuccess.value = false
+    }, 2000)
     console.log('Data inserted successfully:', data);
   }
   console.log('Data inserted successfully:', data);
@@ -106,11 +111,11 @@ const slide = computed(() => {
           <v-spacer/>
           <!-- save button -->
           <v-btn @click="save"
-                 color="primary"
+                 :color="savingSuccess ? 'success' : 'primary'"
                  variant="flat"
                  class="mt-4"
-                 prepend-icon="mdi-content-save"
-          >Speichern
+                 :prepend-icon="savingSuccess ? 'mdi-check' : 'mdi-content-save'"
+          >{{ savingSuccess ? 'Gespeichert' : 'Speichern'}}
           </v-btn>
         </div>
       </div>
