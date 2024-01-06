@@ -6,13 +6,9 @@ const loading = ref(false)
 
 const signInWithPassword = async () => {
   loading.value = true
-  console.log('signing in with otp origin', window.location.origin)
   const {error} = await supabase.auth.signInWithPassword({
     email: email.value,
-    password: password.value,
-    options: {
-      emailRedirectTo: window.location.origin + '/confirm',
-    }
+    password: password.value
   })
   loading.value = false
   if (error) {
@@ -20,7 +16,7 @@ const signInWithPassword = async () => {
     alert(error.message)
   } else {
     console.log('success')
-    alert('Bitte prüfen Sie Ihre E-Mails')
+    window.location.href = '/confirm'
   }
 }
 

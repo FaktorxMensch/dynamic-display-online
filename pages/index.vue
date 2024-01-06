@@ -19,7 +19,7 @@
         class="ms-2"
         variant="outlined"
         prepend-icon="mdi-power"
-        @click="currentSlideshow = null"
+        @click="signOut"
     >Logout
     </v-btn>
   </v-app-bar>
@@ -42,9 +42,16 @@ const slideshow = computed(() => {
 })
 
 async function fetchSlideshows() {
+  // wait for user to be logged in
+  if (!user.value) {
+    setTimeout(fetchSlideshows, 100)
+    console.log('waiting for user to be logged in')
+    return
+  }
   const {data, error} = await supabase
       .from('slideshows')
       .select()
+      .eq('user_id', user.value.id)
 
   if (error) {
     console.error('Error fetching data:', error);
@@ -55,5 +62,10 @@ async function fetchSlideshows() {
 }
 
 onMounted(fetchSlideshows)
+
+const signOut = async () => {
+  await supabase.auth.signOut()
+  window.location.reload()
+}
 </script>
 

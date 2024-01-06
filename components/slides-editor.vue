@@ -5,7 +5,7 @@ const props = defineProps(['slideshow'])
 const addSlide = () => {
   props.slideshow.slides.push({
     "type": "image",
-    "source": "bild1.jpg",
+    "source": "https://cdn.faktorxmensch.com/dynamicdisplay/emily/bild1.jpg",
     "displayTime": 5,
     "background": "#000000",
     "imageMode": "cover"
@@ -31,13 +31,14 @@ const addSlide = () => {
 }
 
 const save = async () => {
+  console.log('saving slides', props.slideshow.id)
   const {data, error} = await supabase
       .from('slideshows')
       .update({
         slides: props.slideshow.slides,
       })
       .eq('id', props.slideshow.id)
-      .select()
+  // .select()
   if (error) {
     console.error('Error inserting data:', error);
     return;
@@ -64,6 +65,14 @@ const generatedControlUrl = computed(() => {
 const openSlideshow = () => {
   window.open(generatedUrl.value, '_blank')
 }
+
+const currentSlide = ref(0)
+const slide = computed(() => {
+  if (!props.slideshow) {
+    return null
+  }
+  return props.slideshow.slides[currentSlide.value]
+})
 </script>
 
 <template>
@@ -82,13 +91,15 @@ const openSlideshow = () => {
     </div>
 
     <div class="flex gap-4">
-      <sidenav @add-slide="addSlide" class="w-56" :slideshow="slideshow"/>
+      <sidenav @add-slide="addSlide" class="w-56" :slideshow="slideshow"
+               :current-slide="currentSlide" @set-current-slide="currentSlide = $event"/>
+      />
       <div class="flex-1">
 
         <h5 class="text-h5 mb-2">Aktuelle Folie</h5>
 
         <v-alert type="info" v-if="slideshow.slides.length === 0">Diese Slideshow hat noch keine Folien.</v-alert>
-        <slide-edit v-for="slide in slideshow.slides" :key="slide.id" :slide="slide" v-else
+        <slide-edit :key="slide.id" :slide="slide" v-else
                     @delete="slideshow.slides.splice(slideshow.slides.indexOf(slide), 1)"/>
         <div class="flex mb-8">
           <v-spacer/>
