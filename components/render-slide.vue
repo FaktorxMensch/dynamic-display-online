@@ -3,7 +3,7 @@ const props = defineProps(['slide'])
 </script>
 
 <template>
-  <div class="render-slide" :style="{background: slide.background}">
+  <div class="render-slide slide" :style="{background: slide.background}">
     <img :src="slide.source" v-if="slide.type === 'image'"
          :class="{'object-cover': slide.imageMode === 'cover', 'object-contain': slide.imageMode === 'contain'}"
     />

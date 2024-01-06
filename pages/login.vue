@@ -56,6 +56,7 @@ definePageMeta({layout: 'login'})
               :disabled="!email"
               class="w-full"
               color="primary"
+              type="submit"
               @click="signInWithPassword"
           >Anmelden
           </v-btn>

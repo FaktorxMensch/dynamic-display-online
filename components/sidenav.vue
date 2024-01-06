@@ -10,8 +10,7 @@ const drag = ref(false);
 
 <template>
   <div>
-    <h5 class="text-h5">Übersicht</h5>
-    <div class="flex gap-2 flex-col my-2">
+    <div class="flex gap-2 flex-col my-3">
       <Draggable v-model="slideshow.slides" class="slides-container" @start="drag=true" @end="drag=false"
                  tag="transition-group" :animation="200">
         <template #item="{element: slide, index}"
