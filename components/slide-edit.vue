@@ -1,6 +1,64 @@
 <script lang="ts" setup>
 const props = defineProps(['slide'])
 const emit = defineEmits(['delete'])
+
+const conditions = [
+  {
+    title: "Zufälligkeit von 30%",
+    expression: "Math.random() < 0.3"
+  },
+  {
+    title: "Immer an Wochentagen",
+    expression: "new Date().getDay() >= 1 && new Date().getDay() <= 5"
+  },
+  {
+    title: "Immer am Wochenende",
+    expression: "new Date().getDay() === 0 || new Date().getDay() === 6"
+  },
+  {
+    title: "Immer von 8 bis 20 Uhr",
+    expression: "new Date().getHours() >= 8 && new Date().getHours() < 20"
+  },
+  {
+    title: "Immer von 20 bis 8 Uhr",
+    expression: "new Date().getHours() >= 20 || new Date().getHours() < 8"
+  },
+  {
+    title: "An einem ganz bestimmten Tag (z.B. 15. Januar 2024)",
+    expression: "new Date().toDateString() === new Date('2024-01-15').toDateString()"
+  },
+  {
+    title: "Ab einem ganz bestimmten Tag (z.B. ab dem 15. Januar 2024)",
+    expression: "new Date() >= new Date('2024-01-15')"
+  },
+  {
+    title: "Bis zu einem ganz bestimmten Tag (z.B. bis zum 15. Januar 2024)",
+    expression: "new Date() <= new Date('2024-01-15')"
+  },
+  {
+    title: "An geraden Tagen des Monats",
+    expression: "new Date().getDate() % 2 === 0"
+  },
+  {
+    title: "An ungeraden Tagen des Monats",
+    expression: "new Date().getDate() % 2 !== 0"
+  },
+  {
+    title: "Nur im Sommer (Juni bis August)",
+    expression: "new Date().getMonth() >= 5 && new Date().getMonth() <= 7"
+  },
+  {
+    title: "Nur im Winter (Dezember bis Februar)",
+    expression: "new Date().getMonth() === 11 || new Date().getMonth() === 0 || new Date().getMonth() === 1"
+  }
+];
+const selectedCondition = ref(null);
+
+watch(selectedCondition, (newValue) => {
+  if (newValue) {
+    props.slide.condition = 'return ' + selectedCondition.value;
+  }
+})
 </script>
 
 <template>
@@ -76,6 +134,9 @@ const emit = defineEmits(['delete'])
     </v-card-title>
     <v-card-text>
       <label for="condition"></label>
+      <v-select label="Vorlage anwenden"
+                item-value="expression"
+                :items="conditions" v-model="selectedCondition" @change="setPredefinedCondition"/>
       <v-textarea
           v-model="props.slide.condition"
           label="Bedingung (JS Ausdruck, der einen boolean zurückgibt, standard ist `return true;`)"
