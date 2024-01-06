@@ -21,9 +21,14 @@ const currentSlideData = computed(() => {
 })
 const nextSlide = () => {
   currentSlide.value = (currentSlide.value + 1) % slideshow.slides.length
-  // set timeout for next slide
-  console.log('setting timeout for next slide in', currentSlideData.value.displayTime)
-  setTimeout(nextSlide, currentSlideData.value.displayTime * 1000)
+
+  // Setze Timeout für die nächste Folie, wenn diese angezeigt werden soll
+  if (shouldDisplaySlide(currentSlideData.value)) {
+    setTimeout(nextSlide, currentSlideData.value.displayTime * 1000);
+  } else {
+    // Sofort zur nächsten Folie, wenn die aktuelle übersprungen werden soll
+    nextSlide();
+  }
 }
 
 const started = ref(false)
@@ -42,6 +47,19 @@ watch(currentSlideData, () => {
 setTimeout(() => {
   window.location.reload()
 }, 60 * 60 * 1000) // 1 hour
+
+const shouldDisplaySlide = (slide) => {
+  if (!slide.enabled) return false;
+
+  try {
+    const conditionFunction = new Function(slide.condition);
+    return conditionFunction();
+  } catch (error) {
+    console.error("Error evaluating condition: ", error);
+    return false;
+  }
+}
+
 </script>
 <template>
   <template v-if="slideshow?.title">
