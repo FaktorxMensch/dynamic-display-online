@@ -67,7 +67,7 @@ const slide = computed(() => {
                @set-current-slide="currentSlide = $event"/>
     </v-navigation-drawer>
 
-    <v-main>
+    <v-main class="overflow-y-auto mt-4" style="height: calc( 100vh - 64px )">
       <v-alert type="info" v-if="currentSlideshow.slides.length === 0">Diese Slideshow hat noch keine Folien.</v-alert>
       <slide-edit :key="slide.id" :slide="slide" v-else
                   @delete="currentSlideshow.slides.splice(currentSlideshow.slides.indexOf(slide), 1)"/>
