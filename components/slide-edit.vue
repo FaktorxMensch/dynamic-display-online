@@ -66,10 +66,10 @@ watch(selectedCondition, (newValue) => {
 </script>
 
 <template>
-  <div class="aspect-video w-full h-auto relative bg-neutral-500 rounded-md mb-5 overflow-hidden">
+  <div class="aspect-video w-full h-auto relative bg-neutral-500 rounded-md mb-5 overflow-hidden max-w-4xl">
     <render-slide :slide="props.slide"
                   class="absolute inset-0"
-                  style="transform: scale(0.475);transform-origin: top left;width: 1920px;height: 1080px;"/>
+                  style="transform: scale(0.467);transform-origin: top left;width: 1920px;height: 1080px;"/>
   </div>
   <v-card class="mb-4">
     <v-card-title>

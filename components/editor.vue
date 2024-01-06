@@ -61,7 +61,7 @@ const slide = computed(() => {
 
 <template>
   <template v-if="user && currentSlideshow">
-    <v-navigation-drawer >
+    <v-navigation-drawer location="left">
       <sidenav class="w-56 mx-4"/>
 
       <v-btn
@@ -90,11 +90,12 @@ const slide = computed(() => {
         </v-btn>
       </div>
     </v-main>
+
   </template>
   <div v-else-if="user">Bitte wählen Sie eine Slideshow aus.</div>
   <v-progress-circular indeterminate v-else/>
 
-  <v-snackbar v-model="savingSuccess" color="success" position="top">
+  <v-snackbar v-model="savingSuccess" color="success" location="top">
     <v-icon left>mdi-check</v-icon>
     Gespeichert
   </v-snackbar>
