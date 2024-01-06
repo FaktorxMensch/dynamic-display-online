@@ -4,9 +4,7 @@ const emit = defineEmits(['delete'])
 </script>
 
 <template>
-  <v-card class="mb-4"
-          variant="outlined"
-  >
+  <v-card class="mb-4">
     <v-card-title>
       <div class="flex justify-between items-center">
         {{ props.slide.type.charAt(0).toUpperCase() + props.slide.type.slice(1) }} -
