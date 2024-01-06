@@ -28,10 +28,11 @@ import {useEditorStore} from "~/stores/editor";
 const user = useSupabaseUser()
 const supabase = useSupabaseClient()
 const editorStore = useEditorStore()
-const {slideshows, currentSlideshow} = storeToRefs(editorStore)
+const {slideshows, currentSlideshow, currentSlide} = storeToRefs(editorStore)
 const generatedUrl = computed(() => {
   if (currentSlideshow.value === null) return null
-  return `${window.location.origin}/slideshow/${currentSlideshow.value.id}`
+  // and append currentSlide no
+  return `${window.location.origin}/slideshow/${currentSlideshow.value.id}?slide=${currentSlide.value}`
 })
 
 const openSlideshow = () => window.open(generatedUrl.value, '_preview')

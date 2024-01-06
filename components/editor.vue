@@ -3,7 +3,7 @@ const supabase = useSupabaseClient()
 const user = useSupabaseUser()
 
 const editorStore = useEditorStore()
-const {slideshows, currentSlideshow} = storeToRefs(editorStore)
+const {slideshows, currentSlideshow,currentSlide} = storeToRefs(editorStore)
 
 
 const addSlide = () => {
@@ -53,7 +53,6 @@ window.addEventListener('keydown', (e) => {
   }
 }, false);
 
-const currentSlide = ref(0)
 const slide = computed(() => {
   if (!currentSlideshow.value) return null
   return currentSlideshow.value.slides[currentSlide.value]
@@ -63,8 +62,16 @@ const slide = computed(() => {
 <template>
   <template v-if="user && currentSlideshow">
     <v-navigation-drawer >
-      <sidenav @add-slide="addSlide" class="w-56 mx-4" :slideshow="currentSlideshow" :current-slide="currentSlide"
-               @set-current-slide="currentSlide = $event"/>
+      <sidenav class="w-56 mx-4"/>
+
+      <v-btn
+          @click="addSlide"
+          variant="flat"
+          class="w-full"
+          style="height:5em"
+          prepend-icon="mdi-plus"
+      >Folie hinzufügen
+      </v-btn>
     </v-navigation-drawer>
 
     <v-main class="overflow-y-auto mt-4" style="height: calc( 100vh - 64px )">

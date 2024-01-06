@@ -1,20 +1,17 @@
 <script lang="ts" setup>
 import Draggable from 'vuedraggable';
-
-const props = defineProps(['slideshow', 'currentSlide'])
-const emit = defineEmits(['addSlide', 'set-current-slide'])
-
 const drag = ref(false);
-
+const editorStore = useEditorStore()
+const { currentSlideshow, currentSlide} = storeToRefs(editorStore)
 </script>
 
 <template>
   <div>
     <div class="flex gap-2 flex-col my-3">
-      <Draggable v-model="slideshow.slides" class="slides-container" @start="drag=true" @end="drag=false"
+      <Draggable v-model="currentSlideshow.slides" class="slides-container" @start="drag=true" @end="drag=false"
                  tag="transition-group" :animation="200">
         <template #item="{element: slide, index}"
-                  v-for="(slide,index) in slideshow.slides"
+                  v-for="(slide,index) in currentSlideshow.slides"
                   :key="slide.id">
           <div class="flex gap-2 items-end p-2 rounded"
                :class="{'bg-blue-500': currentSlide === index, '': currentSlide !== index}"
@@ -25,7 +22,7 @@ const drag = ref(false);
             <div
                 class="w-full relative bg-neutral-500 aspect-video rounded overflow-hidden cursor-pointer transition-all"
                 :class="{'h-5 opacity-50 grayscale': !slide.enabled}"
-                @click="emit('set-current-slide', index)"
+                @click="currentSlide = index"
             >
               <render-slide style="width:1920px;height:1080px; transform: scale(0.100);transform-origin: top left; "
                             :slide="slide"/>
@@ -34,13 +31,6 @@ const drag = ref(false);
         </template>
       </Draggable>
 
-      <v-btn
-          @click="emit('addSlide')"
-          variant="flat"
-          color="#eee"
-          prepend-icon="mdi-plus"
-      >Folie hinzufügen
-      </v-btn>
     </div>
   </div>
 </template>

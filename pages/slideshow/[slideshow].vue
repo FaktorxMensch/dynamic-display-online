@@ -24,7 +24,10 @@ const shouldDisplaySlide = (slide) => {
   }
 }
 
-const currentSlide = ref(0)
+// sometime we get ?slide=4 as parameter
+const currentSlide = ref(route.query.slide || 0)
+let init = false;
+console.log("setting current slide to", currentSlide.value)
 const currentSlideData = computed(() => {
   if (!slideshow) {
     return null
@@ -32,13 +35,18 @@ const currentSlideData = computed(() => {
   return slideshow.slides[currentSlide.value]
 })
 const nextSlide = () => {
-  currentSlide.value = (currentSlide.value + 1) % slideshow.slides.length
+  if (!init) {
+    init = true
+  } else {
+    currentSlide.value = (currentSlide.value + 1) % slideshow.slides.length
+  }
 
   // Setze Timeout für die nächste Folie, wenn diese angezeigt werden soll
   if (shouldDisplaySlide(currentSlideData.value)) {
     setTimeout(nextSlide, currentSlideData.value.displayTime * 1000);
   } else {
     // Sofort zur nächsten Folie, wenn die aktuelle übersprungen werden soll
+    console.log("skipping slide", currentSlide.value)
     nextSlide();
   }
 }
@@ -64,8 +72,8 @@ setTimeout(() => {
 <template>
   <template v-if="slideshow?.title">
     <title>{{slideshow?.title}} (Dynamic Display)</title>
-    <render-slide class="inset-0 fixed" v-if="currentSlideData" :slide="currentSlideData"
-                  @click="nextSlide"/>
+    <!--    slide {{currentSlide}}-->
+    <render-slide class="inset-0 fixed" v-if="currentSlideData" :slide="currentSlideData" @click="nextSlide"/>
     />
   </template>
   <div v-else>
