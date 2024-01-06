@@ -4,6 +4,10 @@ const emit = defineEmits(['delete'])
 
 const conditions = [
   {
+    title: "Immer",
+    expression: "true"
+  },
+  {
     title: "Zufälligkeit von 30%",
     expression: "Math.random() < 0.3"
   },
