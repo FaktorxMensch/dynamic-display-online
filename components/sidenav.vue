@@ -17,14 +17,18 @@ const drag = ref(false);
         <template #item="{element: slide, index}"
                   v-for="(slide,index) in slideshow.slides"
                   :key="slide.id">
-          <div class="w-full relative bg-neutral-500 mb-1 aspect-video rounded overflow-hidden cursor-pointer border-2"
-               :class="{'border-blue-500': currentSlide === index, 'border-neutral-500/50': currentSlide !== index}"
-               @click="emit('set-current-slide', index)"
+          <div class="flex gap-2 items-end p-2 rounded"
+               :class="{'bg-blue-500': currentSlide === index, '': currentSlide !== index}"
           >
-            <render-slide style="width:1920px;height:1080px; transform: scale(0.12);transform-origin: top left; "
-                          :slide="slide"/>
-            <div class="absolute top-0 left-0 bg-neutral-500/50 text-neutral-50 text-xs p-1 rounded-bl z-100">
+            <div class="opacity-50">
               {{ index + 1 }}
+            </div>
+            <div
+                class="w-full relative bg-neutral-500 aspect-video rounded overflow-hidden cursor-pointer border-2"
+                @click="emit('set-current-slide', index)"
+            >
+              <render-slide style="width:1920px;height:1080px; transform: scale(0.12);transform-origin: top left; "
+                            :slide="slide"/>
             </div>
           </div>
         </template>
