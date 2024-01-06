@@ -27,7 +27,7 @@ const drag = ref(false);
                 class="w-full relative bg-neutral-500 aspect-video rounded overflow-hidden cursor-pointer border-2"
                 @click="emit('set-current-slide', index)"
             >
-              <render-slide style="width:1920px;height:1080px; transform: scale(0.12);transform-origin: top left; "
+              <render-slide style="width:1920px;height:1080px; transform: scale(0.098);transform-origin: top left; "
                             :slide="slide"/>
             </div>
           </div>
