@@ -93,7 +93,6 @@ const slide = computed(() => {
     <div class="flex gap-4">
       <sidenav @add-slide="addSlide" class="w-56" :slideshow="slideshow"
                :current-slide="currentSlide" @set-current-slide="currentSlide = $event"/>
-      />
       <div class="flex-1">
 
         <h5 class="text-h5 mb-2">Aktuelle Folie</h5>
