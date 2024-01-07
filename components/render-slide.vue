@@ -48,8 +48,6 @@ onMounted(() => {
 
 <template>
   <div class="render-slide slide" :style="{background: slide.background}" :id="`slide-${id}`">
-    <div :id="`slide-${id}-style`"/>
-
     <img :src="slide.source" v-if="slide.type === 'image'"
          :class="{'object-cover': slide.imageMode === 'cover', 'object-contain': slide.imageMode === 'contain'}"
     />
@@ -57,6 +55,7 @@ onMounted(() => {
     <iframe :src="slide.source" v-else-if="slide.type === 'iframe'"/>
     <div class="html" v-html="slide.source" v-else-if="slide.type === 'html'"/>
   </div>
+  <div :id="`slide-${id}-style`"/>
 </template>
 
 <style>
