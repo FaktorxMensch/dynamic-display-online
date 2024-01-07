@@ -73,8 +73,9 @@ setTimeout(() => {
   <template v-if="slideshow?.title">
     <title>{{slideshow?.title}} (Dynamic Display)</title>
     <!--    slide {{currentSlide}}-->
-    <render-slide class="inset-0 fixed" v-if="currentSlideData" :slide="currentSlideData" @click="nextSlide"/>
-    />
+    <render-slide class="inset-0 fixed" v-if="currentSlideData" :slide="currentSlideData"
+                  :css="slideshow.style"
+                  @click="nextSlide"/>
   </template>
   <div v-else>
     <title>Dynamic Display</title>

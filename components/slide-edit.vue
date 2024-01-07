@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 const props = defineProps(['slide'])
 const emit = defineEmits(['delete'])
-
 const conditions = [
   {
     title: "Immer",
@@ -57,18 +56,21 @@ const conditions = [
   }
 ];
 const selectedCondition = ref(null);
-
 watch(selectedCondition, (newValue) => {
   if (newValue) {
     props.slide.condition = 'return ' + selectedCondition.value;
   }
 })
+
+const editorStore = useEditorStore()
+const  {currentSlideshow} = storeToRefs(editorStore)
 </script>
 
 <template>
   <div class="aspect-video w-full h-auto relative bg-neutral-500 rounded-md mb-5 overflow-hidden max-w-4xl">
     <render-slide :slide="props.slide"
                   class="absolute inset-0"
+                  :css="currentSlideshow.css"
                   style="transform: scale(0.467);transform-origin: top left;width: 1920px;height: 1080px;"/>
   </div>
   <v-card class="mb-4">

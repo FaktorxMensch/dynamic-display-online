@@ -25,6 +25,7 @@ const { currentSlideshow, currentSlide} = storeToRefs(editorStore)
                 @click="currentSlide = index"
             >
               <render-slide style="width:1920px;height:1080px; transform: scale(0.100);transform-origin: top left; "
+                            :css="currentSlideshow.style"
                             :slide="slide"/>
             </div>
           </div>

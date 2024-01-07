@@ -3,18 +3,19 @@ const supabase = useSupabaseClient()
 const user = useSupabaseUser()
 
 const editorStore = useEditorStore()
-const {slideshows, currentSlideshow,currentSlide} = storeToRefs(editorStore)
+const {slideshows, currentSlideshow, currentSlide} = storeToRefs(editorStore)
 
 
 const addSlide = () => {
   currentSlideshow.value.slides.push({
+    "id": Math.random().toString(36).substring(7),
     "type": "image",
     "source": "https://cdn.faktorxmensch.com/dynamicdisplay/emily/bild1.jpg",
     "displayTime": 5,
     "background": "#000000",
     "imageMode": "cover",
     "enabled": true,
-    "condition": 'return true;'
+    "condition": 'return true;',
   })
 }
 
@@ -33,6 +34,8 @@ const save = async () => {
       .from('slideshows')
       .update({
         slides: currentSlideshow.value.slides,
+        title: currentSlideshow.value.title,
+        style: currentSlideshow.value.style
       })
       .eq('id', currentSlideshow.value.id)
   if (error) {
@@ -57,6 +60,16 @@ const slide = computed(() => {
   if (!currentSlideshow.value) return null
   return currentSlideshow.value.slides[currentSlide.value]
 })
+
+// sobald sich currentSlideshow ändert einfach als currentSlide die erste Folie auswählen
+watch(currentSlideshow, () => {
+  // die erste Folie auswählen, die enabled ist
+  currentSlide.value = currentSlideshow.value.slides.findIndex(slide => slide.enabled)
+  // faoostr die erste Folie auswählen, wenn keine enabled ist
+  if (currentSlide.value === -1) {
+    currentSlide.value = 0
+  }
+}, {immediate: true})
 </script>
 
 <template>
@@ -90,6 +103,13 @@ const slide = computed(() => {
         </v-btn>
       </div>
     </v-main>
+
+    <v-navigation-drawer location="right">
+      <v-text-field v-model="currentSlideshow.title" label="Titel" type="text"/>
+      <textarea v-model="currentSlideshow.style" placeholder="Globales CSS" type="text"
+                class="w-full h-full p-4 text-sm font-mono"/>
+
+    </v-navigation-drawer>
 
   </template>
   <div v-else-if="user">Bitte wählen Sie eine Slideshow aus.</div>
