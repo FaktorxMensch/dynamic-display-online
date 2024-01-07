@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 const props = defineProps(['slide', 'css'])
 const id = Math.random().toString(36).substring(7)
-const cssNotScoped = '*{color:red;}'
+const cssNotScoped = props.css
 
 const cssScoped = computed(() => {
   // convert cssNotScoped to cssScoped
   let css = cssNotScoped
   console.log('css', props.css)
+  if (!css) return ''
   // css has a selector followed by a { until the next }, sometimes we have commas in the selector, then each selector needs a #slide-{{slide.id}} prefix
   // eexplode rules by }
   const rules = css.split('}')
@@ -54,6 +55,7 @@ onMounted(() => {
     <video :src="slide.source" v-else-if="slide.type === 'video'" autoplay :muted="slide.muted"/>
     <iframe :src="slide.source" v-else-if="slide.type === 'iframe'"/>
     <div class="html" v-html="slide.source" v-else-if="slide.type === 'html'"/>
+    <slidetype-event v-else-if="slide.type === 'event'"/>
   </div>
   <div :id="`slide-${id}-style`"/>
 </template>

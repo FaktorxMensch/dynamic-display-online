@@ -70,7 +70,7 @@ const  {currentSlideshow} = storeToRefs(editorStore)
   <div class="aspect-video w-full h-auto relative bg-neutral-500 rounded-md mb-5 overflow-hidden max-w-4xl">
     <render-slide :slide="props.slide"
                   class="absolute inset-0"
-                  :css="currentSlideshow.css"
+                  :css="currentSlideshow.style"
                   style="transform: scale(0.467);transform-origin: top left;width: 1920px;height: 1080px;"/>
   </div>
   <v-card class="mb-4">
@@ -80,7 +80,7 @@ const  {currentSlideshow} = storeToRefs(editorStore)
         Folie
         <v-spacer/>
         <v-select v-model="props.slide.type"
-                  :items="['image', 'video', 'iframe', 'html']"
+                  :items="['image', 'video', 'iframe', 'html', 'event']"
                   variant="outlined"
                   class="w-4 me-2"
                   density="compact"
